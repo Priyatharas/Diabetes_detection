@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XGBoost Diabetes Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>XGBoost Diabetes Prediction</h1>
+        <p>Pima Indians Diabetes Dataset + Digital Twin Simulation</p>
+        <a class="nav" href="/evaluation">View Model Evaluation</a>
+    </header>
+
+    <section class="card">
+        <h2>Patient Clinical Information</h2>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="grid">
+                {% for feature in features %}
+                <label>
+                    {{ feature }}
+                    <input type="number" step="any" name="{{ feature }}"
+                           value="{{ form[feature] }}" required>
+                </label>
+                {% endfor %}
+            </div>
+            <button type="submit">Predict Diabetes Risk</button>
+        </form>
+    </section>
+
+    {% if result %}
+    <section class="card result">
+        <h2>Prediction Result</h2>
+        <div class="result-box">
+            <h3>{{ result.label }}</h3>
+            <p>Predicted probability: <strong>{{ result.probability }}%</strong></p>
+            <p class="note">This is the model's predicted probability, not a calibrated clinical confidence score.</p>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if twin %}
+    <section class="card">
+        <h2>12-Month Digital Twin Simulation</h2>
+        <p class="note">
+            The curves are project simulation scenarios. The parameter changes
+            are assumptions used to demonstrate the Digital Twin workflow and
+            are not validated clinical treatment effects.
+        </p>
+        <canvas id="twinChart"></canvas>
+    </section>
+
+    <script>
+        const labels = Array.from({length: 13}, (_, i) => "Month " + i);
+        const data = {{ twin | tojson }};
+
+        new Chart(document.getElementById("twinChart"), {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: Object.entries(data).map(([name, values]) => ({
+                    label: name,
+                    data: values,
+                    fill: false,
+                    tension: 0.2
+                }))
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: "Predicted diabetes probability (%)"
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    {% endif %}
+</div>
+</body>
+</html>

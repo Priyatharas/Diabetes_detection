@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Evaluation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Model Evaluation</h1>
+        <a class="nav" href="/">Back to Prediction</a>
+    </header>
+
+    {% if message %}
+        <div class="error">{{ message }}</div>
+    {% else %}
+    <section class="card">
+        <h2>Test-set Metrics</h2>
+        <table>
+            <tr><th>Metric</th><th>Value</th></tr>
+            <tr><td>Accuracy</td><td>{{ "%.4f"|format(metrics.accuracy) }}</td></tr>
+            <tr><td>Precision</td><td>{{ "%.4f"|format(metrics.precision) }}</td></tr>
+            <tr><td>Recall</td><td>{{ "%.4f"|format(metrics.recall) }}</td></tr>
+            <tr><td>F1 Score</td><td>{{ "%.4f"|format(metrics.f1) }}</td></tr>
+            <tr><td>ROC-AUC</td><td>{{ "%.4f"|format(metrics.roc_auc) }}</td></tr>
+        </table>
+    </section>
+
+    <section class="card">
+        <h2>Confusion Matrix</h2>
+        <table>
+            <tr><th></th><th>Predicted 0</th><th>Predicted 1</th></tr>
+            <tr><th>Actual 0</th><td>{{ metrics.confusion_matrix[0][0] }}</td><td>{{ metrics.confusion_matrix[0][1] }}</td></tr>
+            <tr><th>Actual 1</th><td>{{ metrics.confusion_matrix[1][0] }}</td><td>{{ metrics.confusion_matrix[1][1] }}</td></tr>
+        </table>
+    </section>
+
+    <section class="card">
+        <h2>5-Fold Cross-Validation</h2>
+        <table>
+            <tr><th>Metric</th><th>Mean</th><th>Std</th></tr>
+            {% for name, value in metrics.cross_validation.items() %}
+            <tr>
+                <td>{{ name }}</td>
+                <td>{{ "%.4f"|format(value.mean) }}</td>
+                <td>{{ "%.4f"|format(value.std) }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+    <section class="card">
+        <h2>Generated Research Figures</h2>
+        <p>Open these files from the <code>outputs</code> folder:</p>
+        <ul>
+            <li>confusion_matrix.png</li>
+            <li>roc_curve.png</li>
+            <li>feature_importance.png</li>
+            <li>cv_scores.png</li>
+        </ul>
+    </section>
+    {% endif %}
+</div>
+</body>
+</html>
