@@ -1,0 +1,12 @@
+{
+    "python.defaultInterpreterPath": "C:\\Users\\thara\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./diabetes_xgboost_ready_with_uploaded_model",
+        "-p",
+        "*test.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true
+}

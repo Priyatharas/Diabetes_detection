@@ -1,0 +1,422 @@
+{
+  "description": "Ablation analysis evaluates how XGBoost model performance changes when selected features are removed or incrementally combined.",
+  "baseline": {
+    "dataset_rows": 768,
+    "train_rows": 614,
+    "test_rows": 154,
+    "accuracy": 0.7792,
+    "precision": 0.6923,
+    "recall": 0.6667,
+    "f1": 0.6792,
+    "roc_auc": 0.8313,
+    "confusion_matrix": {
+      "tn": 84,
+      "fp": 16,
+      "fn": 18,
+      "tp": 36,
+      "matrix": [
+        [
+          84,
+          16
+        ],
+        [
+          18,
+          36
+        ]
+      ]
+    },
+    "cross_validation": {
+      "accuracy": {
+        "mean": 0.763,
+        "std": 0.0112,
+        "folds": [
+          0.7662,
+          0.7792,
+          0.7662,
+          0.7451,
+          0.7582
+        ]
+      },
+      "precision": {
+        "mean": 0.6811,
+        "std": 0.0324,
+        "folds": [
+          0.6731,
+          0.7381,
+          0.6875,
+          0.64,
+          0.6667
+        ]
+      },
+      "recall": {
+        "mean": 0.6082,
+        "std": 0.0237,
+        "folds": [
+          0.6481,
+          0.5741,
+          0.6111,
+          0.6038,
+          0.6038
+        ]
+      },
+      "f1": {
+        "mean": 0.6417,
+        "std": 0.0132,
+        "folds": [
+          0.6604,
+          0.6458,
+          0.6471,
+          0.6214,
+          0.6337
+        ]
+      },
+      "roc_auc": {
+        "mean": 0.8283,
+        "std": 0.0238,
+        "folds": [
+          0.8531,
+          0.8472,
+          0.8309,
+          0.8249,
+          0.7855
+        ]
+      }
+    },
+    "classification_report": {
+      "0": {
+        "precision": 0.8235294117647058,
+        "recall": 0.84,
+        "f1-score": 0.8316831683168316,
+        "support": 100.0
+      },
+      "1": {
+        "precision": 0.6923076923076923,
+        "recall": 0.6666666666666666,
+        "f1-score": 0.6792452830188679,
+        "support": 54.0
+      },
+      "accuracy": 0.7792207792207793,
+      "macro avg": {
+        "precision": 0.7579185520361991,
+        "recall": 0.7533333333333333,
+        "f1-score": 0.7554642256678498,
+        "support": 154.0
+      },
+      "weighted avg": {
+        "precision": 0.7775166010460127,
+        "recall": 0.7792207792207793,
+        "f1-score": 0.7782309228227405,
+        "support": 154.0
+      }
+    },
+    "feature_importance": [
+      {
+        "feature": "Glucose",
+        "importance": 0.29412999749183655,
+        "percentage": 29.40999984741211
+      },
+      {
+        "feature": "BMI",
+        "importance": 0.1499900072813034,
+        "percentage": 15.0
+      },
+      {
+        "feature": "Age",
+        "importance": 0.1263200044631958,
+        "percentage": 12.630000114440918
+      },
+      {
+        "feature": "Insulin",
+        "importance": 0.09880000352859497,
+        "percentage": 9.880000114440918
+      },
+      {
+        "feature": "Pregnancies",
+        "importance": 0.09472999721765518,
+        "percentage": 9.470000267028809
+      },
+      {
+        "feature": "DiabetesPedigreeFunction",
+        "importance": 0.09130000323057175,
+        "percentage": 9.130000114440918
+      },
+      {
+        "feature": "SkinThickness",
+        "importance": 0.07881999760866165,
+        "percentage": 7.880000114440918
+      },
+      {
+        "feature": "BloodPressure",
+        "importance": 0.06592000275850296,
+        "percentage": 6.590000152587891
+      }
+    ]
+  },
+  "single_feature_ablation": [
+    {
+      "experiment": "Baseline (All Features)",
+      "removed_feature": "None",
+      "feature_count": 8,
+      "features_used": [
+        "Pregnancies",
+        "Glucose",
+        "BloodPressure",
+        "SkinThickness",
+        "Insulin",
+        "BMI",
+        "DiabetesPedigreeFunction",
+        "Age"
+      ],
+      "accuracy": 0.7792,
+      "precision": 0.6923,
+      "recall": 0.6667,
+      "f1": 0.6792,
+      "roc_auc": 0.8313,
+      "accuracy_delta": 0.0,
+      "f1_delta": 0.0
+    },
+    {
+      "experiment": "Remove Pregnancies",
+      "removed_feature": "Pregnancies",
+      "feature_count": 7,
+      "features_used": [
+        "Glucose",
+        "BloodPressure",
+        "SkinThickness",
+        "Insulin",
+        "BMI",
+        "DiabetesPedigreeFunction",
+        "Age"
+      ],
+      "accuracy": 0.7468,
+      "precision": 0.6415,
+      "recall": 0.6296,
+      "f1": 0.6355,
+      "roc_auc": 0.825,
+      "accuracy_delta": -0.0324,
+      "f1_delta": -0.0437
+    },
+    {
+      "experiment": "Remove Glucose",
+      "removed_feature": "Glucose",
+      "feature_count": 7,
+      "features_used": [
+        "Pregnancies",
+        "BloodPressure",
+        "SkinThickness",
+        "Insulin",
+        "BMI",
+        "DiabetesPedigreeFunction",
+        "Age"
+      ],
+      "accuracy": 0.7208,
+      "precision": 0.6078,
+      "recall": 0.5741,
+      "f1": 0.5905,
+      "roc_auc": 0.7646,
+      "accuracy_delta": -0.0584,
+      "f1_delta": -0.0887
+    },
+    {
+      "experiment": "Remove BloodPressure",
+      "removed_feature": "BloodPressure",
+      "feature_count": 7,
+      "features_used": [
+        "Pregnancies",
+        "Glucose",
+        "SkinThickness",
+        "Insulin",
+        "BMI",
+        "DiabetesPedigreeFunction",
+        "Age"
+      ],
+      "accuracy": 0.7532,
+      "precision": 0.6538,
+      "recall": 0.6296,
+      "f1": 0.6415,
+      "roc_auc": 0.8337,
+      "accuracy_delta": -0.026,
+      "f1_delta": -0.0377
+    },
+    {
+      "experiment": "Remove SkinThickness",
+      "removed_feature": "SkinThickness",
+      "feature_count": 7,
+      "features_used": [
+        "Pregnancies",
+        "Glucose",
+        "BloodPressure",
+        "Insulin",
+        "BMI",
+        "DiabetesPedigreeFunction",
+        "Age"
+      ],
+      "accuracy": 0.7597,
+      "precision": 0.6667,
+      "recall": 0.6296,
+      "f1": 0.6476,
+      "roc_auc": 0.8322,
+      "accuracy_delta": -0.0195,
+      "f1_delta": -0.0316
+    },
+    {
+      "experiment": "Remove Insulin",
+      "removed_feature": "Insulin",
+      "feature_count": 7,
+      "features_used": [
+        "Pregnancies",
+        "Glucose",
+        "BloodPressure",
+        "SkinThickness",
+        "BMI",
+        "DiabetesPedigreeFunction",
+        "Age"
+      ],
+      "accuracy": 0.7532,
+      "precision": 0.66,
+      "recall": 0.6111,
+      "f1": 0.6346,
+      "roc_auc": 0.8283,
+      "accuracy_delta": -0.026,
+      "f1_delta": -0.0446
+    },
+    {
+      "experiment": "Remove BMI",
+      "removed_feature": "BMI",
+      "feature_count": 7,
+      "features_used": [
+        "Pregnancies",
+        "Glucose",
+        "BloodPressure",
+        "SkinThickness",
+        "Insulin",
+        "DiabetesPedigreeFunction",
+        "Age"
+      ],
+      "accuracy": 0.7403,
+      "precision": 0.6346,
+      "recall": 0.6111,
+      "f1": 0.6226,
+      "roc_auc": 0.8087,
+      "accuracy_delta": -0.0389,
+      "f1_delta": -0.0566
+    },
+    {
+      "experiment": "Remove DiabetesPedigreeFunction",
+      "removed_feature": "DiabetesPedigreeFunction",
+      "feature_count": 7,
+      "features_used": [
+        "Pregnancies",
+        "Glucose",
+        "BloodPressure",
+        "SkinThickness",
+        "Insulin",
+        "BMI",
+        "Age"
+      ],
+      "accuracy": 0.7468,
+      "precision": 0.6364,
+      "recall": 0.6481,
+      "f1": 0.6422,
+      "roc_auc": 0.8276,
+      "accuracy_delta": -0.0324,
+      "f1_delta": -0.037
+    },
+    {
+      "experiment": "Remove Age",
+      "removed_feature": "Age",
+      "feature_count": 7,
+      "features_used": [
+        "Pregnancies",
+        "Glucose",
+        "BloodPressure",
+        "SkinThickness",
+        "Insulin",
+        "BMI",
+        "DiabetesPedigreeFunction"
+      ],
+      "accuracy": 0.7468,
+      "precision": 0.6415,
+      "recall": 0.6296,
+      "f1": 0.6355,
+      "roc_auc": 0.8102,
+      "accuracy_delta": -0.0324,
+      "f1_delta": -0.0437
+    }
+  ],
+  "combination_ablation": [
+    {
+      "combination_name": "Glucose Only",
+      "feature_count": 1,
+      "features": [
+        "Glucose"
+      ],
+      "accuracy": 0.7078,
+      "precision": 0.6364,
+      "recall": 0.3889,
+      "f1": 0.4828,
+      "roc_auc": 0.7288
+    },
+    {
+      "combination_name": "Glucose + BMI",
+      "feature_count": 2,
+      "features": [
+        "Glucose",
+        "BMI"
+      ],
+      "accuracy": 0.7273,
+      "precision": 0.6364,
+      "recall": 0.5185,
+      "f1": 0.5714,
+      "roc_auc": 0.7807
+    },
+    {
+      "combination_name": "Glucose + BMI + Age",
+      "feature_count": 3,
+      "features": [
+        "Glucose",
+        "BMI",
+        "Age"
+      ],
+      "accuracy": 0.7468,
+      "precision": 0.6471,
+      "recall": 0.6111,
+      "f1": 0.6286,
+      "roc_auc": 0.8257
+    },
+    {
+      "combination_name": "Glucose + BMI + Age + Insulin",
+      "feature_count": 4,
+      "features": [
+        "Glucose",
+        "BMI",
+        "Age",
+        "Insulin"
+      ],
+      "accuracy": 0.7468,
+      "precision": 0.6471,
+      "recall": 0.6111,
+      "f1": 0.6286,
+      "roc_auc": 0.8269
+    },
+    {
+      "combination_name": "All 8 Features",
+      "feature_count": 8,
+      "features": [
+        "Pregnancies",
+        "Glucose",
+        "BloodPressure",
+        "SkinThickness",
+        "Insulin",
+        "BMI",
+        "DiabetesPedigreeFunction",
+        "Age"
+      ],
+      "accuracy": 0.7792,
+      "precision": 0.6923,
+      "recall": 0.6667,
+      "f1": 0.6792,
+      "roc_auc": 0.8313
+    }
+  ]
+}
